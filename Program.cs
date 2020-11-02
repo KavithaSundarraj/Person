@@ -8,7 +8,8 @@ using System.Linq;
 •	firstName: string
 •	lastName: string
 •	age: int
-•	ToString(): string - override */
+•	ToString(): string - override
+solution using class*/
 
 namespace Person
 {
