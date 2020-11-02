@@ -16,6 +16,18 @@ Read person with their names, age and salary. Read percent bonus to every person
 New fields and methods:
 •	salary: decimal 
 •	IncreaseSalary(decimal percentage)
+*3.	Validation of Data
+* Expand Person with proper validation for every field:
+•	Names must be at least 3 symbols
+•	Age must not be zero or negative
+•	Salary can't be less than 460.0 
+Print proper messages to the user:
+•	“Age cannot be zero or a negative integer!”
+•	“First name cannot contain fewer than 3 symbols!”
+•	“Last name cannot contain fewer than 3 symbols!”
+•	“Salary cannot be less than 460 dollar!”
+Use ArgumentExeption with messages from example.
+
  */
 
 
@@ -53,49 +65,95 @@ namespace Person
 
     class Person
     {
-        private string firstname;
-        private string lastname;
-        private int age;
-        private decimal salary;
-
         public Person(String firstname, String lastname, int  age, decimal salary)
         {
-            this.firstname = firstname;
-            this.lastname = lastname;
-            this.age = age;
-            this.salary = salary;
+            this.Firstname = firstname;
+            this.Lastname = lastname;
+            this.Age = age;
+            this.Salary = salary;
         }
         public string Firstname
         {
             get
             {
-                return this.firstname;
+                return this.Firstname;
             }
-           
+
+             set
+            {
+                if (value.Length < 3)
+                {
+                    throw new ArgumentException("First name cannot contain fewer than 3 symbols!");
+                    //Console.WriteLine("First name cannot contain fewer than 3 symbols!");
+                }
+                this.Firstname = value;
+            }
+        }
+        public string Lastname
+        {
+            get
+            {
+                return this.Lastname;
+            }
+
+           set
+            {
+                if (value.Length < 3)
+                {
+                    throw new ArgumentException("Last name cannot contain fewer than 3 symbols!");
+                    //Console.WriteLine("Last name cannot contain fewer than 3 symbols!");
+                }
+                this.Lastname = value;
+            }
         }
         public int Age
         {
             get
             {
-                return this.age;
+                return this.Age;
+            }
+          set
+            {
+                if (value  <= 0)
+                {
+                    throw new ArgumentException("Age cannot be zero or a negative integer!");
+                    //Console.WriteLine("Age cannot be zero or a negative integer!");
+                }
+                this.Age = value;
+            }
+        }
+        public decimal Salary
+        {
+            get
+            {
+                return this.Salary;
+            }
+            set
+            {
+                if (value < 460)
+                {
+                    throw new ArgumentException("Salary cannot be less than 460 dollar!");
+                    //Console.WriteLine("Salary cannot be less than 460 dollar!");
+                }
+                this.Salary = value;
             }
         }
 
         public override string ToString()
         {
-            return $"{this.firstname} {this.lastname} receives {this.salary} dollars.";
+            return $"{this.Firstname} {this.Lastname} receives {this.Salary} dollars.";
         }
 
         public void IncreaseSalary (decimal percentage)
         {
             if(this.Age > 30)
             {
-                this.salary += this.salary * percentage / 100;
+                this.Salary += this.Salary * percentage / 100;
                     
             }
             else
             {
-                this.salary += this.salary * percentage / 200;
+                this.Salary += this.Salary * percentage / 200;
             }
         }
     }
