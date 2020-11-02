@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+//using System.Linq;
 /* Lab: Encapsulation
  * Date : 02 Nov 2020
  * 1.	Sort Persons by Name and Age
@@ -27,7 +27,6 @@ Print proper messages to the user:
 •	“Last name cannot contain fewer than 3 symbols!”
 •	“Salary cannot be less than 460 dollar!”
 Use ArgumentExeption with messages from example.
-
  */
 
 
