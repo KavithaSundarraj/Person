@@ -27,6 +27,9 @@ Print proper messages to the user:
 •	“Last name cannot contain fewer than 3 symbols!”
 •	“Salary cannot be less than 460 dollar!”
 Use ArgumentExeption with messages from example.
+* 4.	First and Reserve Team
+* Create a Team class. Add to this team all people you read. All people younger than 40 go on the first team,
+* others go on the reverse team. At the end print the first and reserve team sizes.
  */
 
 
@@ -52,30 +55,89 @@ namespace Person
                    .ThenBy(p => p.Age)
                    .ToList()
                    .ForEach(p => Console.WriteLine(p.ToString()));   */
-            Console.WriteLine("Enter Bonus for Persons :");
-            var bonus = decimal.Parse(Console.ReadLine());
-            Console.WriteLine("After calculating Bonus Percentage for Persons :");
-            persons.ForEach(p => p.IncreaseSalary(bonus));
-            persons.ForEach(p => Console.WriteLine(p.ToString()));
+            /* Console.WriteLine("Enter Bonus for Persons :");
+             var bonus = decimal.Parse(Console.ReadLine());
+             Console.WriteLine("After calculating Bonus Percentage for Persons :");
+             persons.ForEach(p => p.IncreaseSalary(bonus));
+             persons.ForEach(p => Console.WriteLine(p.ToString())); */
+
+            Team team = new Team("Lexicon");
+            foreach(Person p in persons)
+            {
+                team.AddPlayer(p);
+
+            }
+            Console.WriteLine("Team :");
+            Console.WriteLine(team.ToString());
 
 
         }
     }
 
+    class Team
+    {
+        private String name;
+        private List<Person> firstteam;
+        private List<Person> reserveteam;
+
+
+        private List<Person> Firstteam
+        {
+            get
+            {
+                return this.firstteam;
+            }
+        }
+        private List<Person> Reserveteam
+        {
+            get
+            {
+                return this.reserveteam;
+            }
+        }
+        public Team(String name)
+        {
+            this.firstteam = new List<Person>();
+            this.reserveteam = new List<Person>();
+            this.name = name;
+
+        }
+        public void AddPlayer(Person player)
+        {
+            if(player.Age < 40)
+            {
+                firstteam.Add(player);
+            }
+            else
+            {
+                reserveteam.Add(player);
+            }
+        }
+        public override string ToString()
+        {
+            return $"Firstteam has {this.firstteam.Count} players.\nReserve team has {this.reserveteam.Count} players. ";
+        }
+
+    }
     class Person
     {
+        private string firstname;
+        private string lastname;
+        private int age;
+        private decimal salary;
+
         public Person(String firstname, String lastname, int  age, decimal salary)
         {
-            this.Firstname = firstname;
-            this.Lastname = lastname;
-            this.Age = age;
-            this.Salary = salary;
+            this.firstname = firstname;
+            this.lastname = lastname;
+            this.age = age;
+            this.salary = salary;
         }
         public string Firstname
         {
             get
             {
-                return this.Firstname;
+                return this.firstname;
             }
 
              set
@@ -85,14 +147,14 @@ namespace Person
                     throw new ArgumentException("First name cannot contain fewer than 3 symbols!");
                     //Console.WriteLine("First name cannot contain fewer than 3 symbols!");
                 }
-                this.Firstname = value;
+                this.firstname = value;
             }
         }
         public string Lastname
         {
             get
             {
-                return this.Lastname;
+                return this.lastname;
             }
 
            set
@@ -102,14 +164,14 @@ namespace Person
                     throw new ArgumentException("Last name cannot contain fewer than 3 symbols!");
                     //Console.WriteLine("Last name cannot contain fewer than 3 symbols!");
                 }
-                this.Lastname = value;
+                this.lastname = value;
             }
         }
         public int Age
         {
             get
             {
-                return this.Age;
+                return this.age;
             }
           set
             {
@@ -118,14 +180,14 @@ namespace Person
                     throw new ArgumentException("Age cannot be zero or a negative integer!");
                     //Console.WriteLine("Age cannot be zero or a negative integer!");
                 }
-                this.Age = value;
+                this.age = value;
             }
         }
         public decimal Salary
         {
             get
             {
-                return this.Salary;
+                return this.salary;
             }
             set
             {
@@ -134,25 +196,25 @@ namespace Person
                     throw new ArgumentException("Salary cannot be less than 460 dollar!");
                     //Console.WriteLine("Salary cannot be less than 460 dollar!");
                 }
-                this.Salary = value;
+                this.salary = value;
             }
         }
 
         public override string ToString()
         {
-            return $"{this.Firstname} {this.Lastname} receives {this.Salary} dollars.";
+            return $"{this.firstname} {this.lastname} receives {this.salary} dollars.";
         }
 
         public void IncreaseSalary (decimal percentage)
         {
             if(this.Age > 30)
             {
-                this.Salary += this.Salary * percentage / 100;
+                this.salary += this.salary * percentage / 100;
                     
             }
             else
             {
-                this.Salary += this.Salary * percentage / 200;
+                this.salary += this.salary * percentage / 200;
             }
         }
     }
